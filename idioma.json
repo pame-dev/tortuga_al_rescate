@@ -1,0 +1,52 @@
+{
+    "esp": {
+        "inicio": {
+            "imagen_inicio": "imagenes/fondo1final.png"
+
+        },
+        "credits": {
+
+            "lider": {
+                "nombre": "Yureni Sierra Aguilar",
+                "descripcion": "Lider del proyecto"
+            },
+            "desarrollador": {
+                "nombre": "Jonathan Elizalde Moran",
+                "descripcion": "Desarrollador"
+            },
+            "ilustraciones": {
+                "nombre": "Pamela Rodriguez Gomez",
+                "descripcion": "Ilustradora y desarrolladora"
+            },
+            "Fondos" : {
+                "nombre": "Isabella Vidrio Camarena",
+                "descripcion": "Fondos de pantalla y animaciones"
+            }
+            
+        }
+    },
+    "ing": {
+        "inicio": {
+            "imagen_inicio": "imagenes/fondoing.jpg"
+        },
+    "credits": {
+
+        "lider": {
+            "nombre": "Yureni Sierra Aguilar",
+            "descripcion": "Lider del proyecto"
+        },
+        "desarrollador": {
+            "nombre": "Jonathan Elizalde Moran",
+            "descripcion": "Desarrollador"
+        },
+        "ilustraciones": {
+            "nombre": "Pamela Rodriguez Gomez",
+            "descripcion": "Ilustradora y desarrolladora"
+        },
+        "Fondos" : {
+            "nombre": "Isabella Vidrio Camarena",
+            "descripcion": "Fondos de pantalla y animaciones"
+        }
+        }
+    }
+}
