@@ -8,13 +8,15 @@ def mostrar_historia(pantalla):
     """
     # Cargar las imágenes de la historia
     imagenes_historia = [
-        pygame.image.load("historia/historia1.jpg").convert(),
-        pygame.image.load("historia/historia2.jpg").convert(),
-        pygame.image.load("historia/historia3.jpg").convert(),
-        pygame.image.load("historia/historia4.jpg").convert(),
-        pygame.image.load("historia/historia5.jpg").convert(),
-        pygame.image.load("historia/historia6.jpg").convert(),
-        pygame.image.load("historia/historia7.jpg").convert()
+        pygame.image.load("historia/h1.jpg").convert(),
+        pygame.image.load("historia/h2.jpg").convert(),
+        pygame.image.load("historia/h3.jpg").convert(),
+        pygame.image.load("historia/h4.jpg").convert(),
+        pygame.image.load("historia/h5.jpg").convert(),
+        pygame.image.load("historia/h6.jpg").convert(),
+        pygame.image.load("historia/h7.jpg").convert(),
+        pygame.image.load("historia/h8.jpg").convert(),
+        pygame.image.load("historia/h9.jpg").convert()        
     ]
     imagenes_historia = [pygame.transform.scale(img, pantalla.get_size()) for img in imagenes_historia]
 

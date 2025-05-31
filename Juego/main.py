@@ -4,6 +4,7 @@ import dificultades  # Cambiado a dificultades en lugar de niveles
 import json
 import configuracion
 import historia
+import creditos
 pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load("musica/musica.mp3")
@@ -26,6 +27,12 @@ def cargar_fondo():
         textoConfig = json.load(formato)
     fondo_inicio = pygame.image.load(textoConfig[lenguaje]['inicio']['imagen_inicio']).convert()
 
+
+def cargar_imagenes_botones():
+    global botones, boton_volumen
+    with open('idioma.json') as formato:
+        textoConfig = json.load(formato)
+
     
 lenguaje = "esp"
 cargar_fondo()
@@ -36,8 +43,8 @@ fondos_animacion = [
     pygame.image.load("imagenes/fondo1final3.png").convert()
 ]
 imagenes_idiomas = [
-    pygame.transform.scale(pygame.image.load("idiomas/mexico.png").convert_alpha(), (200, 200)),
-    pygame.transform.scale(pygame.image.load("idiomas/usa.png").convert_alpha(), (200, 200))
+    pygame.transform.scale(pygame.image.load("idiomas/es.png").convert_alpha(), (200, 200)),
+    pygame.transform.scale(pygame.image.load("idiomas/uk.png").convert_alpha(), (200, 200))
 ]
 
 indice_fondo = 0
@@ -129,6 +136,7 @@ def cambiar_idioma():
     else:
         lenguaje = "ing"
     cargar_fondo()  # Cambiar el fondo según el idioma
+    cargar_imagenes_botones()
     print(f"Idioma cambiado a: {lenguaje}, Fondo: {textoConfig[lenguaje]['inicio']['imagen_inicio']}")
 
 
@@ -149,11 +157,14 @@ def ver_controles():
 
     def dibujar(self, pantalla):
         pantalla.blit(self.imagenes[self.indice], (self.x, self.y))
-
+def mostrar_creditos():
+    boton_sound.play()
+    reloj = pygame.time.Clock()
+    creditos.mostrar_creditos() 
 # Acciones de los botones
 def iniciar_niveles():
     boton_sound.play()
-    fondo = pygame.image.load("imagenes/fondo.jpg").convert()
+    fondo = pygame.image.load("imagenes/fondoniveles1.jpg").convert()
     reloj = pygame.time.Clock()
     dificultades.mostrar_dificultades(pantalla, fondo, reloj)
 
@@ -183,21 +194,26 @@ def alternar_volumen():
 # Creación de botones con imágenes
 botones = [
     Boton("botones/boton_empezar.png", "botones/boton_presionado.png", W // 2, 320, iniciar_niveles),
-    Boton ("idiomas/mexico.png", "idiomas/usa.png", W// 2, 440, cambiar_idioma)
+    Boton ("idiomas/es.png", "idiomas/uk.png", 50, 50, cambiar_idioma)
 ]
 # Crear un botón para los controles, suponiendo que tengas las imágenes para el botón
 botones.append(Boton("botones/confi_1.png", "botones/confi_2.png", W // 2, 560, ver_controles))
+botones.append(Boton("botones/social1.png", "botones/social2.png", 30, 560, mostrar_creditos))
 
 boton_volumen = Boton(
     "botones/maximo1.png",  # Imagen inicial para volumen máximo
     "botones/maximo2.png",  # Imagen resaltada para volumen máximo
-    50, 50,  # Coordenadas del botón (ajusta si es necesario)
+    W//2, 440,  # Coordenadas del botón (ajusta si es necesario)
     alternar_volumen  # Acción al presionar el botón
 )
 botones.append(boton_volumen)
 def liberar_botones():
-    for boton in botones:
-        boton.release()
+    if evento.type == pygame.MOUSEBUTTONUP:
+        for boton in botones:
+            # Liberamos el botón solo si el mouse ya no está presionando sobre él
+            if boton.rect.collidepoint(mouse_pos):
+                boton.release()
+
 # Funciones de volumen
 def ajustar_volumen(delta):
     volumen_actual = pygame.mixer.music.get_volume()

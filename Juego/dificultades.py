@@ -14,7 +14,7 @@ boton_sound = pygame.mixer.Sound("musica/sonidodeboton.mp3")
 W, H = 1280, 720
 screen = pygame.display.set_mode((W, H)) 
 pygame.display.set_caption("Selección de Dificultad")
-fondo = pygame.image.load('imagenes/fondo.jpg') 
+fondo = pygame.image.load('imagenes/fondoniveles1.jpg') 
 
 boton_normal = pygame.image.load('botones/simple1.png')  # Botón dificultad normal
 boton_presionado = pygame.image.load('botones/simple2.png')  # Botón dificultad presionado
@@ -45,8 +45,6 @@ def mostrar_dificultades(pantalla, fondo, reloj):
                     main.main()
                     return
 
-
-
         # Dibujar la imagen de fondo
         pantalla.blit(fondo, (0, 0))
 
@@ -69,7 +67,7 @@ def mostrar_dificultades(pantalla, fondo, reloj):
             pantalla.blit(boton_presionado2, boton_rect2)
             if mouse_click[0]:
                 boton_sound.play()
-                nivdific.dificil()  # Llama a la función del archivo nivdific.py
+                nivdific.niveles_dificil(pantalla, fondo, reloj)  # Llama a la función del archivo nivdific.py
                 return
         else:
             pantalla.blit(boton_normal2, boton_rect2)

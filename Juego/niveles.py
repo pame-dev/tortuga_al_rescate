@@ -3,8 +3,7 @@ import sys
 import nivel1
 import nivel2
 import nivel3
-
-# Configuración de Pygame
+import dificultades# Configuración de Pygame
 pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load("musica/musica.mp3")
@@ -16,7 +15,7 @@ screen = pygame.display.set_mode((W, H))
 pygame.display.set_caption("Selección de Niveles")
 
 # Cargar las imágenes de fondo y de los botones
-fondo = pygame.image.load('imagenes/fondo.jpg')  # Imagen de fondo
+fondo = pygame.image.load('imagenes/fondoniveles1.jpg')  # Imagen de fondo
 boton_normal = pygame.image.load('botones/nivel11.png')  # Botón nivel 1 normal
 boton_presionado = pygame.image.load('botones/nivel11p.png')  # Botón nivel 1 presionado
 
@@ -27,8 +26,8 @@ boton_normal3 = pygame.image.load('botones/nivel33.png')  # Botón nivel 3 norma
 boton_presionado3 = pygame.image.load('botones/nivel33p.png')  # Botón nivel 3 presionado
 
 # Botón regresar
-boton_regresar_normal = pygame.image.load('botones/regresar1.png')  # Botón normal
-boton_regresar_presionado = pygame.image.load('botones/regresar2.png')  # Botón presionado
+boton_regresar_normal = pygame.transform.scale(pygame.image.load('botones/regresar1.png'), (100,80))  # Botón normal
+boton_regresar_presionado = pygame.transform.scale(pygame.image.load('botones/regresar2.png'), (100,80))  # Botón presionado
 boton_regresar_rect = boton_regresar_normal.get_rect(topleft=(10, 10))  # Coloca en la esquina superior izquierda
 
 # Rectángulos de los botones, centrar en pantalla
@@ -42,20 +41,22 @@ def liberar_botones():
     global boton_presionado_flag
     boton_presionado_flag = None
 
+def regresar_a_dificultades(pantalla, fondo, reloj):
+    dificultades.mostrar_dificultades(pantalla, fondo, reloj)
+    return dificultades   
 def mostrar_niveles(pantalla, fondo, reloj):
-    """Función para mostrar la pantalla de selección de niveles."""
-    global boton_presionado_flag
-    
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()  # Asegurarse de salir completamente
+                sys.exit()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 boton_sound.play()
-                return
+                return regresar_a_dificultades(pantalla, fondo, reloj)  # Llama a la función regresar_a_dificultades  
             if event.type == pygame.MOUSEBUTTONUP:
                 liberar_botones()
+
+
         # Dibujar la imagen de fondo
         pantalla.blit(fondo, (0, 0))
 
@@ -67,42 +68,44 @@ def mostrar_niveles(pantalla, fondo, reloj):
         if boton_regresar_rect.collidepoint(mouse_pos):
             if mouse_click[0]:
                 boton_sound.play()
-                return  # Salir de la función y regresar al menú anterior
+                return dificultades  # Cambia el estado a "dificultades"
             pantalla.blit(boton_regresar_presionado, boton_regresar_rect)
         else:
             pantalla.blit(boton_regresar_normal, boton_regresar_rect)
 
         # Nivel 1
         if boton_rect.collidepoint(mouse_pos):
-            if mouse_click[0] and boton_presionado_flag is None:
-                boton_presionado_flag = boton_rect
-                pantalla.blit(boton_presionado, boton_rect)
+            if mouse_click[0]:
                 boton_sound.play()
+                pantalla.blit(boton_presionado, boton_rect)
                 nivel1.jugar_nivel()  # Inicia el nivel 1
-                return
-            pantalla.blit(boton_presionado if boton_presionado_flag == boton_rect else boton_normal, boton_rect)
+                return dificultades # Cambia el estado a "dificult
+            else:
+                pantalla.blit(boton_normal, boton_rect)
         else:
             pantalla.blit(boton_normal, boton_rect)
 
         # Nivel 2
         if boton_rect2.collidepoint(mouse_pos):
-            if mouse_click[0] and boton_presionado_flag is None:
-                boton_presionado_flag = boton_rect2
-                pantalla.blit(boton_presionado2, boton_rect2)
+            if mouse_click[0]:
                 boton_sound.play()
+                pantalla.blit(boton_presionado2, boton_rect2)
                 nivel2.jugar_nivel()  # Inicia el nivel 2
-                return
+                return dificultades
+            else:
+                pantalla.blit(boton_normal2, boton_rect2)
         else:
             pantalla.blit(boton_normal2, boton_rect2)
 
-        # Nivel 3 (nuevo botón añadido)
+        # Nivel 3
         if boton_rect3.collidepoint(mouse_pos):
-            if mouse_click[0] and boton_presionado_flag is None:
-                boton_presionado_flag = boton_rect3
-                pantalla.blit(boton_presionado3, boton_rect3)
+            if mouse_click[0]:
                 boton_sound.play()
+                pantalla.blit(boton_presionado3, boton_rect3)
                 nivel3.jugar_nivel()  # Inicia el nivel 3
-                return
+                return dificultades
+            else:
+                pantalla.blit(boton_normal3, boton_rect3)
         else:
             pantalla.blit(boton_normal3, boton_rect3)
         

@@ -7,7 +7,7 @@ def mostrar_controls(pantalla, reloj):
     utilizando las teclas izquierda y derecha.
     """
     # Cargar las imágenes
-    imagen_controles = pygame.image.load("imagenes/controles.png").convert_alpha()
+    imagen_controles = pygame.image.load("imagenes/controles.jpg").convert_alpha()
     imagen_instrucciones1 = pygame.image.load("imagenes/instrucciones1.jpg").convert_alpha()
     imagen_instrucciones2 = pygame.image.load("imagenes/instrucciones2.jpg").convert_alpha()
 

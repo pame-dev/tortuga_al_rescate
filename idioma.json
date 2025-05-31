@@ -2,10 +2,11 @@
     "esp": {
         "inicio": {
             "imagen_inicio": "imagenes/fondo1final.png"
-
+        },
+        "configuracion": {
+            "imagen_fondo": "imagenes/configuracion.jpeg"
         },
         "credits": {
-
             "lider": {
                 "nombre": "Yureni Sierra Aguilar",
                 "descripcion": "Lider del proyecto"
@@ -18,35 +19,42 @@
                 "nombre": "Pamela Rodriguez Gomez",
                 "descripcion": "Ilustradora y desarrolladora"
             },
-            "Fondos" : {
+            "Fondos": {
                 "nombre": "Isabella Vidrio Camarena",
                 "descripcion": "Fondos de pantalla y animaciones"
             }
-            
+        },
+        "botones_idioma": {
+            "imagen": "imagenes/es.png"
         }
     },
     "ing": {
         "inicio": {
-            "imagen_inicio": "imagenes/fondoing.jpg"
+            "imagen_inicio": "imagenes/fondoing3.jpg"
         },
-    "credits": {
-
-        "lider": {
-            "nombre": "Yureni Sierra Aguilar",
-            "descripcion": "Lider del proyecto"
+        "configuracion": {
+            "imagen_fondo": "imagenes/configuracioni.jpg"
         },
-        "desarrollador": {
-            "nombre": "Jonathan Elizalde Moran",
-            "descripcion": "Desarrollador"
+        "credits": {
+            "lider": {
+                "nombre": "Yureni Sierra Aguilar",
+                "descripcion": "Leader of the project"
+            },
+            "desarrollador": {
+                "nombre": "Jonathan Elizalde Moran",
+                "descripcion": "Developer"
+            },
+            "ilustraciones": {
+                "nombre": "Pamela Rodriguez Gomez",
+                "descripcion": "Illustrator and developer"
+            },
+            "Fondos": {
+                "nombre": "Isabella Vidrio Camarena",
+                "descripcion": "Wallpaper and animation creator"
+            }
         },
-        "ilustraciones": {
-            "nombre": "Pamela Rodriguez Gomez",
-            "descripcion": "Ilustradora y desarrolladora"
-        },
-        "Fondos" : {
-            "nombre": "Isabella Vidrio Camarena",
-            "descripcion": "Fondos de pantalla y animaciones"
-        }
+        "botones_idioma": {
+            "imagen": "imagenes/uk.png"
         }
     }
 }

@@ -1,8 +1,11 @@
 import pygame
 import sys
-import controls  # Importar el archivo controls.py
-import creditos  # Importar el archivo creditos.py
-import historia  # Importar el archivo historia.py
+import json
+import historia
+import controls
+import configuracion
+import creditos
+# Cargar el archivo JSON con las configuraciones de idiomas
 
 # Nivel de volumen inicial
 volumen = 0.5
@@ -22,31 +25,28 @@ def toggle_mute():
     pygame.mixer.music.set_volume(0 if muteado else volumen)
 
 def mostrar_configuracion(pantalla, reloj):
-    """
-    Muestra la pantalla de configuración con fondo y botones basados en imágenes.
-    """
-    global volumen, muteado
+
 
     # Cargar imagen de fondo
     fondo = pygame.image.load("imagenes/configuracion.jpeg").convert()
     fondo = pygame.transform.scale(fondo, pantalla.get_size())
 
     # Cargar imágenes de los botones
-    boton_controles_img = pygame.image.load("botones/confi_1.png").convert_alpha()
-    boton_controles_img_presionado = pygame.image.load("botones/confi_2.png").convert_alpha()
-    boton_creditos_img = pygame.transform.scale(pygame.image.load("botones/creditos1.png"), (100,80)).convert_alpha()
-    boton_creditos_img_presionado = pygame.transform.scale(pygame.image.load("botones/creditos2.png"), (100,80)).convert_alpha()
+    boton_controles_img = pygame.transform.scale(pygame.image.load("botones/control1.png"), (100, 80)).convert_alpha()
+    boton_controles_img_presionado = pygame.transform.scale(pygame.image.load("botones/control2.png"), (100, 80)).convert_alpha()
     boton_historia_img = pygame.transform.scale(pygame.image.load("botones/libro1.png"), (100, 80)).convert_alpha()
     boton_historia_img_presionado = pygame.transform.scale(pygame.image.load("botones/libro2.png"), (100, 80)).convert_alpha()
-    boton_mute_img = pygame.transform.scale(pygame.image.load("botones/nada1.png"), (100,80)).convert_alpha()
-    boton_mute_img_presionado = pygame.transform.scale(pygame.image.load("botones/nada2.png"), (100,80)).convert_alpha()
+    boton_mute_img = pygame.transform.scale(pygame.image.load("botones/nada1.png"), (100, 80)).convert_alpha()
+    boton_mute_img_presionado = pygame.transform.scale(pygame.image.load("botones/nada2.png"), (100, 80)).convert_alpha()
+    boton_regresar_img = pygame.transform.scale(pygame.image.load("botones/regresar1.png"), (100, 80)).convert_alpha()
+    boton_regresar_img_presionado = pygame.transform.scale(pygame.image.load("botones/regresar2.png"), (100, 80)).convert_alpha()
 
     # Dimensiones y posiciones de los botones
     W, H = pantalla.get_size()
-    boton_controles_rect = boton_controles_img.get_rect(center=(W // 2, H // 2 - 150))
-    boton_creditos_rect = boton_creditos_img.get_rect(center=(W // 2, H // 2 + 150))
-    boton_historia_rect = boton_historia_img.get_rect(center=(W // 2, H // 2 - 50))
-    boton_mute_rect = boton_mute_img.get_rect(center=(W // 2, H // 2 + 50))
+    boton_controles_rect = boton_controles_img.get_rect(center=(W // 2, H // 2 - 175))
+    boton_mute_rect = boton_mute_img.get_rect(center=(W // 2, H // 2 ))
+    boton_historia_rect = boton_historia_img.get_rect(center=(W // 2, H // 2 + 175 ))
+    boton_regresar_rect = boton_regresar_img.get_rect(topleft=(10, 10))  # Colocado en la esquina superior izquierda
 
     # Bucle de configuración
     configurando = True
@@ -63,12 +63,12 @@ def mostrar_configuracion(pantalla, reloj):
             elif evento.type == pygame.MOUSEBUTTONDOWN:
                 if boton_controles_rect.collidepoint(evento.pos):  # Clic en "Controles"
                     controls.mostrar_controls(pantalla, reloj)  # Llamar a la función en controls.py
-                elif boton_creditos_rect.collidepoint(evento.pos):  # Clic en "Créditos"
-                    creditos.mostrar_creditos()  # Llamar a la función en creditos.py
                 elif boton_historia_rect.collidepoint(evento.pos):  # Clic en "Historia"
                     historia.mostrar_historia(pantalla)  # Llamar a la función en historia.py
                 elif boton_mute_rect.collidepoint(evento.pos):  # Clic en "Mute"
                     toggle_mute()
+                elif boton_regresar_rect.collidepoint(evento.pos):  # Clic en "Regresar"
+                    configurando = False  # Salir de la configuración
             elif evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_ESCAPE:  # Salir al menú principal con ESC
                     configurando = False
@@ -84,12 +84,6 @@ def mostrar_configuracion(pantalla, reloj):
             pantalla.blit(boton_controles_img_presionado, boton_controles_rect.topleft)
         else:
             pantalla.blit(boton_controles_img, boton_controles_rect.topleft)
-
-        if boton_creditos_rect.collidepoint(mouse_pos):
-            pantalla.blit(boton_creditos_img_presionado, boton_creditos_rect.topleft)
-        else:
-            pantalla.blit(boton_creditos_img, boton_creditos_rect.topleft)
-
         if boton_historia_rect.collidepoint(mouse_pos):
             pantalla.blit(boton_historia_img_presionado, boton_historia_rect.topleft)
         else:
@@ -100,6 +94,12 @@ def mostrar_configuracion(pantalla, reloj):
             pantalla.blit(boton_mute_img_presionado, boton_mute_rect.topleft)
         else:
             pantalla.blit(boton_mute_img, boton_mute_rect.topleft)
+
+        # Botón regresar
+        if boton_regresar_rect.collidepoint(mouse_pos):
+            pantalla.blit(boton_regresar_img_presionado, boton_regresar_rect.topleft)
+        else:
+            pantalla.blit(boton_regresar_img, boton_regresar_rect.topleft)
 
         # Actualizar la pantalla
         pygame.display.flip()

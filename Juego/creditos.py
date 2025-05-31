@@ -1,9 +1,9 @@
 import pygame
 import sys
 import time
-import configuracion  # Importar configuracion.py
-
+import configuracion
 pygame.init()
+pygame.mixer.init()
 
 # Configuración de la pantalla
 W, H = 1280, 720
